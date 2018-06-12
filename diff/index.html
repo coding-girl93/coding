@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DIFF</title>
+</head>
+<body>
+    diff算法介绍
+    <script>
+        // 渲染 dom
+        function createElement(vnode){
+            var tag = vnode.tag,
+                attrs = vnode.attrs||{},
+                children = vnode.children||[];
+            if(!tag){
+                return  null
+            }
+            // 创建标签
+            var elem = document.createElement(tag);
+            // 属性
+            for(var attrName in attrs){
+                if(attrs.hasOwnProperty(attrName)){
+                    elem.setAttribute(attrName,attrs[attrName])
+                }
+            }
+            //子元素
+            children.forEach(function(item){
+                //createElement(item) 获取真实的节点
+                elem.appendChild(createElement(item)) //递归调用
+            })
+            return elem
+        }
+        // 对比
+        function updateChildren(vnode,newvnode){
+            var children = vnode.children||[],
+                newChildren = newvnode.children||[];
+                children.forEach(function(child,index){
+                    var newChild = newChildren[index]
+                    if(newChild==null){
+                        return 
+                    }
+                    if(child.tag==newChild.tag){
+                        updateChildren(child,newChild)
+                    }else{
+                        replaceNode(child,newChild)
+                    }
+                })   
+        }
+        function replaceNode(vnode,newvnode){
+            var elem = vnode.elem,
+                newElem = createElement(newvnode);
+                //DOM替换
+                elem.replaceElement(newElem)
+        }
+    </script>
+</body>
+</html>

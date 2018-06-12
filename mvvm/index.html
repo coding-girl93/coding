@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tolist-by-jQuery</title>
+</head>
+<body>  
+    <input type="text" id="text">
+    <button id="btn">submit</button>
+    <ul id="ul"></ul>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript" >
+        var $text = $('#text'),
+            $btn =$('#btn'),
+            $ul =$('#ul');
+
+            $btn.click(function(){
+                var text = $text.val();
+                if(!text){
+                    return
+                }
+                var $li = $('<li>'+text+'</li>');
+                $ul.append($li);
+                $text.val('')
+            })
+    </script>
+</body>
+</html>

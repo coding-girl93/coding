@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue</title>
+</head>
+<body>
+        defineProperty test 
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+    <script>
+        var obj ={},
+            _name = 'liner';
+        Object.defineProperty(obj,'name',{
+            get:function(){
+                console.log('get');//监听   
+                return _name
+            },
+            set:function(newVal){
+                console.log('set');
+                _name = newVal
+            }
+        })
+   
+        // vue 实现
+        var vm = {}, // 绑定在vm上
+            data = {
+                name:'dd',
+                age:323
+            }
+        for(var key in data){
+            (function(key){
+                // 代理到vm上
+                Object.defineProperty(vm,key,{
+                    get:function(){
+                        return data[key]
+                    },
+                    set:function(newVal){
+                        data[key] = newVal
+                    }
+                })
+            })(key)
+        }
+    </script>
+</body>
+</html>
